@@ -1,10 +1,15 @@
 export const metadata = {
   title: "MBG Versus",
-  description: "Seberapa besar anggaran MBG jika dibandingkan dengan kebutuhan nyata rakyat Indonesia?",
+  description: "Bandingkan anggaran MBG dengan kebutuhan nyata rakyat Indonesia.",
   openGraph: {
     title: "MBG Versus",
-    description: "Seberapa besar anggaran MBG jika dibandingkan dengan kebutuhan nyata rakyat Indonesia?",
+    description: "Bandingkan anggaran MBG dengan kebutuhan nyata rakyat Indonesia.",
+    images: ["https://raw.githubusercontent.com/ridwantaufik11/mbg-versus/main/app/og-image.png"],
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["https://raw.githubusercontent.com/ridwantaufik11/mbg-versus/main/app/og-image.png"],
   },
 };
 
