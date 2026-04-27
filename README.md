@@ -1,6 +1,9 @@
 # MBG Versus
 
-Visualisasi interaktif: seberapa besar anggaran MBG dibandingkan kebutuhan nyata rakyat Indonesia.
+Dengan dana Rp1,2 triliun per hari, MBG menjadi program pemerintah dengan anggaran terbesar dalam sejarah Indonesia. Tapi uang sebesar itu sebenarnya bisa untuk apa?
+
+App ini memberi gambaran nyata: seberapa besar anggaran MBG jika dibandingkan dengan kebutuhan hidup rakyat Indonesia sehari-hari.
+
 
 ## Stack
 
