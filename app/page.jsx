@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import { Share2, Home, Shuffle, ArrowRight, Sun, Moon } from "lucide-react";
+import { Share2, Home, Shuffle, ArrowRight, Sun, Moon, Copy } from "lucide-react";
 
 const DATA_A = [
   { id: "apbn_bgn", label: "Anggaran BGN APBN 2026", value: 268_000_000_000_000, detail: "Terbesar dari seluruh K/L", source: "UU No.17/2025 APBN 2026" },
@@ -295,13 +295,29 @@ function PageB({ selectedA, selectedB, setSelectedB, activeCat, setActiveCat, on
 }
 
 function PageResult({ selectedA, selectedB, comparison, onBack, onReset, onHome, isRandom, onRandom, dark, onToggleTheme }) {
+  const [copied, setCopied] = useState(false);
+  const shareText = `${comparison.sentence}\n\nCek sendiri: https://mbg-versus.vercel.app`;
+
   const share = () => {
-    const text = `${comparison.sentence}\n\nCek sendiri: uangrakyat.id`;
-    if (navigator.share) navigator.share({ title: "Uang Rakyat", text });
-    else { navigator.clipboard.writeText(text); alert("Teks disalin ke clipboard!"); }
+    if (navigator.share) {
+      navigator.share({ text: shareText });
+    } else {
+      handleCopy();
+    }
   };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(shareText).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    });
+  };
+
   return (
     <div className="page result-page">
+      {copied && (
+        <div className="toast">Teks berhasil disalin!</div>
+      )}
       <div className="result-card">
         <div className="result-overline">Hasil Perbandingan</div>
         <div className="result-big">{comparison.number}</div>
@@ -316,12 +332,14 @@ function PageResult({ selectedA, selectedB, comparison, onBack, onReset, onHome,
           {isRandom ? (
             <>
               <button className="btn primary share" onClick={share}><Share2 size={15} strokeWidth={2.5}/> Bagikan</button>
+              <button className="btn secondary" onClick={handleCopy}><Copy size={14} strokeWidth={2}/> Salin Teks</button>
               <button className="btn secondary" onClick={onRandom}><Shuffle size={14} strokeWidth={2}/> Acak Lagi</button>
               <button className="btn secondary" onClick={onHome}><Home size={14} strokeWidth={2}/> Beranda</button>
             </>
           ) : (
             <>
               <button className="btn primary share" onClick={share}><Share2 size={15} strokeWidth={2.5}/> Bagikan</button>
+              <button className="btn secondary" onClick={handleCopy}><Copy size={14} strokeWidth={2}/> Salin Teks</button>
               <button className="btn secondary" onClick={onBack}>Ganti Pembanding</button>
               <button className="btn secondary" onClick={onReset}>Bandingkan Lagi</button>
               <button className="btn secondary" onClick={onHome}><Home size={14} strokeWidth={2}/> Beranda</button>
@@ -499,6 +517,8 @@ export default function App() {
         .footer { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border3); font-family: 'DM Sans', sans-serif; font-size: 11px; line-height: 1.7; color: var(--text5); display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
         .footer strong { color: var(--text4); }
         .footer-text { flex: 1; min-width: 180px; }
+        .toast { position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%); background: #1a1a1a; color: #fff; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; padding: 10px 20px; border-radius: 20px; z-index: 100; animation: toastIn .25s ease-out; white-space: nowrap; box-shadow: 0 4px 16px rgba(0,0,0,0.2); }
+        @keyframes toastIn { from { opacity: 0; transform: translateX(-50%) translateY(8px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
       `}</style>
 
       {step === 0 && <PageHome onStart={() => setStep(1)} onRandom={handleRandom} dark={dark} onToggleTheme={() => setDark(d => !d)} />}
