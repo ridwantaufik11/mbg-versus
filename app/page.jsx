@@ -88,7 +88,7 @@ function generateComparison(a, b) {
     ? a.prefix
     : a.id === "apbn_bgn"
       ? `${a.label} (${formatRupiah(a.value)})`
-      : `Anggaran ${a.label} (${formatRupiah(a.value)})`;
+      : `Anggaran ${a.label} Belanja BGN (${formatRupiah(a.value)})`;
 
   // Dynamic "count" mode for bantuan items when A < total cost
   if (b.perPerson && b.cmpCount && a.value < b.value) {
